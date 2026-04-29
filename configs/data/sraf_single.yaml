@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+_target_: src.data.iccad13_mscale.Iccad13MultiScaleSingle
+
+data_dir: ./benchmark/ICCAD2013
+tile_size_x: ${opc.common.TileSizeX}
+tile_size_y: ${opc.common.TileSizeY}
+offset_x: ${opc.common.OffsetX}
+offset_y: ${opc.common.OffsetY}
+data_idx: 1
+sraf_forbiddens:
+  - ${opc.mini.SRAF_FORBIDDEN}
+  - ${opc.low.SRAF_FORBIDDEN}
+  - ${opc.mid.SRAF_FORBIDDEN}
+  - ${opc.high.SRAF_FORBIDDEN}
+seg_lengths:
+  - ${opc.mini.SEG_LENGTH}
+  - ${opc.low.SEG_LENGTH}
+  - ${opc.mid.SEG_LENGTH}
+  - ${opc.high.SEG_LENGTH}
+down_scales:
+  - ${opc.mini.DownScale}
+  - ${opc.low.DownScale}
+  - ${opc.mid.DownScale}
+  - ${opc.high.DownScale}
+
+scale_strs: ["mini", "low", "mid", "high"]

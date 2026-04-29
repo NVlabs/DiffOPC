@@ -1,0 +1,191 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+common:
+  TargetDensity: 0.225
+  SigmoidSteepness: 4.0
+  EPELoss: True
+  WeightEPE: 100
+  WeightL2: 1.0
+  WeightPVBL2: 0.5
+  WeightPVBand: 0.0
+  StepSize: 2
+  VISUAL_DEBUG: 0
+  VERBOSE: 0
+  OPT: "adam" # 'adam' or 'sgd'
+  # OPT: "sgd"
+  TileSizeX: 2048
+  TileSizeY: 2048
+  OffsetX: 384
+  OffsetY: 384
+  ILTSizeX: 1280
+  ILTSizeY: 1280
+  SEG_LENGTH: 80
+  SRAF_FORBIDDEN: 60
+  SRAF_threshold_min: 0.2
+  SRAF_contour_area: 400
+  SRAF_min_contour_wh_rule: 40 # with or height of sraf less than this, will be ignore
+  SRAF_initial_sraf_wh: 60
+  max_sraf_grad_candidates: 1
+  max_sraf_grad_value: 0.9
+
+mini:
+  # common parameters
+  TargetDensity: ${opc.common.TargetDensity}
+  SigmoidSteepness: ${opc.common.SigmoidSteepness}
+  EPELoss: ${opc.common.EPELoss}
+  WeightEPE: ${opc.common.WeightEPE}
+  WeightL2: ${opc.common.WeightL2}
+  WeightPVBL2: ${opc.common.WeightPVBL2}
+  WeightPVBand: ${opc.common.WeightPVBand}
+  OPT: ${opc.common.OPT}
+  # Debug parameters
+  VISUAL_DEBUG: ${opc.common.VISUAL_DEBUG}
+  VERBOSE: ${opc.common.VERBOSE}
+  TileSizeX: ${eval:'${opc.common.TileSizeX} // ${opc.mini.DownScale}'} # 256
+  TileSizeY: ${eval:'${opc.common.TileSizeY} // ${opc.mini.DownScale}'} # 256
+  OffsetX: ${eval:'${opc.common.OffsetX} // ${opc.mini.DownScale}'} # 48
+  OffsetY: ${eval:'${opc.common.OffsetY} // ${opc.mini.DownScale}'} # 48
+  ILTSizeX: ${eval:'${opc.common.ILTSizeX} // ${opc.mini.DownScale}'} # 160
+  ILTSizeY: ${eval:'${opc.common.ILTSizeY} // ${opc.mini.DownScale}'} # 160
+
+  max_sraf_grad_candidates: ${opc.common.max_sraf_grad_candidates} #5
+  max_sraf_grad_value: ${opc.common.max_sraf_grad_value} # 0.9
+
+  StepSize: 1
+  DownScale: 8
+  Iterations: 70
+  SEG_LENGTH: 10 # 15
+  SRAF_ITERATIONS: 70
+
+  # SRAF parameters
+  IsInsertSRAF: false
+  SRAF_FORBIDDEN: 10
+  SRAF_contour_area: 25
+  SRAF_threshold_min: 0.2
+  SRAF_initial_sraf_wh: 8
+  SRAF_min_contour_wh_rule: 5
+
+low:
+  # common parameters
+  TargetDensity: ${opc.common.TargetDensity}
+  SigmoidSteepness: ${opc.common.SigmoidSteepness}
+  EPELoss: ${opc.common.EPELoss}
+  WeightEPE: ${opc.common.WeightEPE}
+  WeightL2: ${opc.common.WeightL2}
+  WeightPVBL2: ${opc.common.WeightPVBL2}
+  WeightPVBand: ${opc.common.WeightPVBand}
+  OPT: ${opc.common.OPT}
+  # Debug parameters
+  VISUAL_DEBUG: ${opc.common.VISUAL_DEBUG}
+  VERBOSE: ${opc.common.VERBOSE}
+  TileSizeX: ${eval:'${opc.common.TileSizeX} // ${opc.low.DownScale}'} # 512
+  TileSizeY: ${eval:'${opc.common.TileSizeY} // ${opc.low.DownScale}'} # 512
+  OffsetX: ${eval:'${opc.common.OffsetX} // ${opc.low.DownScale}'} # 96
+  OffsetY: ${eval:'${opc.common.OffsetY} // ${opc.low.DownScale}'} # 96
+  ILTSizeX: ${eval:'${opc.common.ILTSizeX} // ${opc.low.DownScale}'} # 320
+  ILTSizeY: ${eval:'${opc.common.ILTSizeY} // ${opc.low.DownScale}'} # 320
+
+  max_sraf_grad_candidates: ${opc.common.max_sraf_grad_candidates} #5
+  max_sraf_grad_value: ${opc.common.max_sraf_grad_value} # 0.9
+
+  StepSize: 1
+  DownScale: 4
+  SEG_LENGTH: 40 # 15
+  Iterations: 70
+  SRAF_ITERATIONS: 70
+
+  # SRAF parameters
+  IsInsertSRAF: false
+  SRAF_FORBIDDEN: 20
+  SRAF_contour_area: 100
+  SRAF_threshold_min: 0.2
+  SRAF_initial_sraf_wh: 5
+  SRAF_min_contour_wh_rule: 10
+
+mid:
+  # common parameters
+  TargetDensity: ${opc.common.TargetDensity}
+  SigmoidSteepness: ${opc.common.SigmoidSteepness}
+  EPELoss: ${opc.common.EPELoss}
+  WeightEPE: ${opc.common.WeightEPE}
+  WeightL2: ${opc.common.WeightL2}
+  WeightPVBL2: ${opc.common.WeightPVBL2}
+  WeightPVBand: ${opc.common.WeightPVBand}
+  OPT: ${opc.common.OPT}
+  # Debug parameters
+  VISUAL_DEBUG: ${opc.common.VISUAL_DEBUG}
+  VERBOSE: ${opc.common.VERBOSE}
+  TileSizeX: ${eval:'${opc.common.TileSizeX} // ${opc.mid.DownScale}'} # 1024
+  TileSizeY: ${eval:'${opc.common.TileSizeY} // ${opc.mid.DownScale}'} # 1024
+  OffsetX: ${eval:'${opc.common.OffsetX} // ${opc.mid.DownScale}'} # 192
+  OffsetY: ${eval:'${opc.common.OffsetY} // ${opc.mid.DownScale}'} # 192
+  ILTSizeX: ${eval:'${opc.common.ILTSizeX} // ${opc.mid.DownScale}'} # 640
+  ILTSizeY: ${eval:'${opc.common.ILTSizeY} // ${opc.mid.DownScale}'} # 640
+
+  max_sraf_grad_candidates: ${opc.common.max_sraf_grad_candidates} #5
+  max_sraf_grad_value: ${opc.common.max_sraf_grad_value} # 0.9
+
+  StepSize: 2
+  DownScale: 2
+  SEG_LENGTH: 80
+  Iterations: 70
+  SRAF_ITERATIONS: 70
+
+  # SRAF parameters
+  IsInsertSRAF: false
+  SRAF_FORBIDDEN: 40
+  SRAF_contour_area: 400
+  SRAF_threshold_min: 0.2
+  SRAF_initial_sraf_wh: 20
+  SRAF_min_contour_wh_rule: 20
+
+high:
+  # common parameters
+  TargetDensity: ${opc.common.TargetDensity}
+  SigmoidSteepness: ${opc.common.SigmoidSteepness}
+  EPELoss: ${opc.common.EPELoss}
+  WeightEPE: ${opc.common.WeightEPE}
+  WeightL2: ${opc.common.WeightL2}
+  WeightPVBL2: ${opc.common.WeightPVBL2}
+  WeightPVBand: ${opc.common.WeightPVBand}
+  OPT: ${opc.common.OPT}
+  # Debug parameters
+  VISUAL_DEBUG: ${opc.common.VISUAL_DEBUG}
+  VERBOSE: ${opc.common.VERBOSE}
+
+  TileSizeX: ${eval:'${opc.common.TileSizeX} // ${opc.high.DownScale}'} # 2048
+  TileSizeY: ${eval:'${opc.common.TileSizeY} // ${opc.high.DownScale}'} # 2048
+  OffsetX: ${eval:'${opc.common.OffsetX} // ${opc.high.DownScale}'} # 384
+  OffsetY: ${eval:'${opc.common.OffsetY} // ${opc.high.DownScale}'} # 384
+  ILTSizeX: ${eval:'${opc.common.ILTSizeX} // ${opc.high.DownScale}'} # 1280
+  ILTSizeY: ${eval:'${opc.common.ILTSizeY} // ${opc.high.DownScale}'} # 1280
+
+  max_sraf_grad_candidates: ${opc.common.max_sraf_grad_candidates} #5
+  max_sraf_grad_value: ${opc.common.max_sraf_grad_value} # 0.9
+
+  StepSize: 4
+  DownScale: 1
+  SEG_LENGTH: 60
+  Iterations: 70
+  SRAF_ITERATIONS: 70
+
+  # SRAF parameters
+  IsInsertSRAF: false
+  SRAF_FORBIDDEN: 80
+  SRAF_contour_area: 800
+  SRAF_threshold_min: 0.2
+  SRAF_initial_sraf_wh: 60
+  SRAF_min_contour_wh_rule: 40

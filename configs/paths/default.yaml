@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+# path to root directory
+# this requires PROJECT_ROOT environment variable to exist
+# you can replace it with "." if you want the root to be the current working directory
+root_dir: ${oc.env:PROJECT_ROOT}
+
+# path to data directory
+data_dir: ${paths.root_dir}/data/
+
+# path to logging directory
+log_dir: ${paths.root_dir}/logs/
+
+# path to output directory, created dynamically by hydra
+# path generation pattern is specified in `configs/hydra/default.yaml`
+# use it to store all files generated during the run, like ckpts and metrics
+output_dir: ${hydra:runtime.output_dir}
+
+# path to working directory
+work_dir: ${hydra:runtime.cwd}

@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+_target_: src.data.iccad13_data.Iccad13Single
+
+data_dir: ./benchmark/ICCAD2013
+tile_size_x: ${opc.TileSizeX}
+tile_size_y: ${opc.TileSizeY}
+offset_x: ${opc.OffsetX}
+offset_y: ${opc.OffsetY}
+seg_length: ${opc.SEG_LENGTH}
+sraf_forbidden: ${opc.SRAF_FORBIDDEN}
+data_idx: 1
+down_scale: 1

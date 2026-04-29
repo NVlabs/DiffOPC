@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+# https://aimstack.io/
+
+# example usage in lightning module:
+# https://github.com/aimhubio/aim/blob/main/examples/pytorch_lightning_track.py
+
+# open the Aim UI with the following command (run in the folder containing the `.aim` folder):
+# `aim up`
+
+aim:
+  _target_: aim.sdk.run.Run
+  repo: ${paths.root_dir}/aim # .aim folder will be created here
+  # repo: "aim://ip_address:port" # can instead provide IP address pointing to Aim remote tracking server which manages the repo, see https://aimstack.readthedocs.io/en/latest/using/remote_tracking.html#
+
+  # aim allows to group runs under experiment name
+  experiment: null # any string, set to "default" if not specified
+
+  # sets the tracking interval in seconds for system usage metrics (CPU, GPU, memory, etc.)
+  system_tracking_interval: null # set to null to disable system metrics tracking
+
+  # enable/disable logging of system params such as installed packages, git info, env vars, etc.
+  log_system_params: false
+
+  # enable/disable tracking console logs (default value is true)
+  capture_terminal_logs: true # set to false to avoid infinite console log loop issue https://github.com/aimhubio/aim/issues/2550

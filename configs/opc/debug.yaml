@@ -1,0 +1,50 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NVIDIA-License
+#
+# Authors: Guojin Chen (work done during internship at NVIDIA), Haoyu Yang
+#
+# Project: DiffOPC — Differentiable OPC
+# Paper:   https://dl.acm.org/doi/10.1145/3676536.3676764
+#
+# NVIDIA CORPORATION and its affiliates retain all intellectual property and
+# proprietary rights in and to this software and related documentation. Any
+# use, reproduction, or distribution is subject to the terms of the NVIDIA
+# License (see LICENSE in the project root). The work may be used only for
+# non-commercial research or evaluation, except by NVIDIA Corporation and
+# its affiliates.
+
+Iterations: 70
+TargetDensity: 0.225
+SigmoidSteepness: 4.0
+EPELoss: True
+WeightEPE: 100
+WeightL2: 1.0
+WeightPVBL2: 0.5
+WeightPVBand: 0.0
+StepSize: 4
+
+OPT: "adam" # 'adam' or 'sgd'
+
+TileSizeX: 2048
+TileSizeY: 2048
+OffsetX: 512
+OffsetY: 512
+ILTSizeX: 1024
+ILTSizeY: 1024
+SEG_LENGTH: 60
+DownScale: 1
+
+# SRAF parameters
+IsInsertSRAF: False
+SRAF_FORBIDDEN: 40
+SRAF_ITERATIONS: 60
+SRAF_threshold_min: 0.2
+SRAF_contour_area: 400
+SRAF_min_contour_wh_rule: 20
+SRAF_initial_sraf_wh: 60
+# Debug parameters
+VISUAL_DEBUG: 0
+VERBOSE: 0
+
+Evaluation: 1
+eval_shot: False
