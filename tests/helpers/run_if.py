@@ -35,7 +35,6 @@ from tests.helpers.package_available import (
     _MLFLOW_AVAILABLE,
     _NEPTUNE_AVAILABLE,
     _SH_AVAILABLE,
-    _TPU_AVAILABLE,
     _WANDB_AVAILABLE,
 )
 
@@ -63,7 +62,6 @@ class RunIf:
         min_python: Optional[str] = None,
         skip_windows: bool = False,
         sh: bool = False,
-        tpu: bool = False,
         fairscale: bool = False,
         deepspeed: bool = False,
         wandb: bool = False,
@@ -79,7 +77,6 @@ class RunIf:
         :param max_torch: Maximum pytorch version to run test.
         :param min_python: Minimum python version required to run test.
         :param skip_windows: Skip test for Windows platform.
-        :param tpu: If TPU is available.
         :param sh: If `sh` module is required to run the test.
         :param fairscale: If `fairscale` module is required to run the test.
         :param deepspeed: If `deepspeed` module is required to run the test.
@@ -116,10 +113,6 @@ class RunIf:
         if skip_windows:
             conditions.append(_IS_WINDOWS)
             reasons.append("does not run on Windows")
-
-        if tpu:
-            conditions.append(not _TPU_AVAILABLE)
-            reasons.append("TPU")
 
         if sh:
             conditions.append(not _SH_AVAILABLE)

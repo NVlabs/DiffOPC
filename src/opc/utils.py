@@ -1016,9 +1016,6 @@ class EPEChecker:
         return epeIn, epeOut
 
 
-from adabox import proc, tools
-
-
 class ShotCounter:
     def __init__(
         self,
@@ -1031,6 +1028,8 @@ class ShotCounter:
         self._device = device
 
     def run(self, mask, target=None, scale=1, shape=(512, 512)):
+        from adabox import proc, tools
+
         if not isinstance(mask, torch.Tensor):
             mask = torch.tensor(mask, dtype=REALTYPE, device=self._device)
         image = torch.nn.functional.interpolate(mask[None, None, :, :], size=shape, mode="nearest")[0, 0]
