@@ -16,7 +16,6 @@
 import platform
 
 import pkg_resources
-from lightning.fabric.accelerators import TPUAccelerator
 
 
 def _package_available(package_name: str) -> bool:
@@ -31,8 +30,6 @@ def _package_available(package_name: str) -> bool:
     except pkg_resources.DistributionNotFound:
         return False
 
-
-_TPU_AVAILABLE = TPUAccelerator.is_available()
 
 _IS_WINDOWS = platform.system() == "Windows"
 
