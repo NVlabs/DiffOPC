@@ -22,8 +22,8 @@ channels:
 
 dependencies:
   - python=3.10
-  - pytorch=2.*
-  - torchvision=0.*
+  - pytorch=2.10.*
+  - torchvision=0.25.*
   - torchmetrics=0.*
   - hydra-core=1.*
   - rich=13.*
